@@ -8,4 +8,4 @@ COPY ./app /app
 
 COPY ./models /models
 
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "/gunicorn_conf.py" ,"main:app" ]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c" ,"main:app" ]
