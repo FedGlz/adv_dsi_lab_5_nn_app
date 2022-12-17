@@ -1,11 +1,15 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.10
 
-COPY requirements.txt .
+WORKDIR /code
 
-RUN pip3 install -r requirements.txt
+COPY ./requirements.txt /code/requirements.txt
 
-COPY ./app /app
+RUN pip3 install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./models /models
+COPY ./app /code/app
 
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c" ,"main:app" ]
+COPY ./models /code/models
+
+COPY ./src /code/src
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
